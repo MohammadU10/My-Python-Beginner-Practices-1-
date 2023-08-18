@@ -44,18 +44,18 @@
 #     total += i
 # print(total/len(l))
 
-# nomarat = [19, 15, 18, 11, 8, 14, 20]
-# jam = 0
-# for adad in nomarat:
-#     jam = jam + adad
-# print(jam/len(nomarat))
-
-
 nomarat = [19, 15, 18, 11, 8, 14, 20]
 jam = 0
-for i in range(len(nomarat)):
-    jam = jam + nomarat[i]
+for adad in nomarat:
+    jam = jam + adad
 print(jam/len(nomarat))
+
+
+# nomarat = [19, 15, 18, 11, 8, 14, 20]
+# jam = 0
+# for i in range(len(nomarat)):
+    # jam = jam + nomarat[i]
+# print(jam/len(nomarat))
 
 # for i in l:
 #     while i < l[i + 1]:

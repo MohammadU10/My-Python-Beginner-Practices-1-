@@ -105,7 +105,7 @@ print(dev_1.pay) """
 # So we can make these changes to our Subclasses without worrying about breaking anything in the Parent Class.
 
 
-# 2.2. So Now we Change this back to Developer And we'll make a few more Complicated Changes :
+# 2.2. So Now we gonna Change this back to Developer And we'll make a few more Complicated Changes :
 
 # So Sometimes we want to Initiate our Subclasses with More Information Than our Parent Class can Handle;
 
@@ -133,7 +133,7 @@ class Developer(Employee):
         # Now there are Multiple Ways of Doing this Logic here, you may see some people do :
         """ Employee.__init__(self, first, last, pay) """
         # Now Both of these Ways of Calling the Parent's '__init__' will work,
-        # But Here We tend to Use 'super()' Because with Single Inheritance Like we are Using Here, it's a little bit More Maintainable,
+        # But Here We tend to Use 'super()', Because with Single Inheritance Like we are Using Here, it's a little bit More Maintainable,
         # But it's really Necessary Once you Start Using Multiple Inheritance;
         # But to Keep things Simple, we Usually just like to Always Stick With 'super()'
         
@@ -141,11 +141,98 @@ class Developer(Employee):
         self.prog_lang = prog_lang
 
 
-dev_1 = Developer('Corey', 'Schafer', 50000, 'Python')
+""" dev_1 = Developer('Corey', 'Schafer', 50000, 'Python')
 dev_2 = Developer('Test', 'User', 60000, 'Java')
 
 print(dev_1.email)
-print(dev_1.prog_lang)
+print(dev_1.prog_lang) """
 
 
-# 2.3. Creating Another Subclass :
+
+# 3. Creating Another Subclass (Manager) :
+class Manager(Employee):
+    
+    # 3.1 Now When we Create a New Manager, we're going to give the Option of Passing in a List of Employees that this Manager supervises;
+    # So we're going to Need to Add an '__init__' Method for our Manager :
+    def __init__(self, first, last, pay, employees=None):
+        super().__init__(first, last, pay)
+        if employees is None:
+            self.employees = []
+        else:
+            self.employees = employees
+        # Now you might be wondering Why we Didn't just Pass in an Empty List as Default Argument here Instead of 'None',
+        # But you Never want to Pass Mutable Data Types Like a List Or a Dictionary as Default Arguments.
+    
+    # So Now Let's Add in a few Methods Here :
+    # So we're going to give the Option to Add and Remove From our List of Employees that our Manager supervises :
+    def add_emp(self, emp):
+        if emp not in self.employees:
+            self.employees.append(emp)
+    
+    def remove_emp(self, emp):
+        if emp in self.employees:
+            self.employees.remove(emp)
+    
+    # And Lastly, we're going to Add a Method that will Print out All of the Employees that this Manager supervises :
+    def print_emps(self):
+        for emp in self.employees:
+            print('-->', emp.fullname())
+
+
+# 3.2. Testing :
+dev_1 = Developer('Corey', 'Schafer', 50000, 'Python')
+dev_2 = Developer('Test', 'Employee', 60000, 'Java')
+
+mgr_1 = Manager('Sue', 'Smith', 90000, [dev_1])
+
+""" # So Now Let's Make Sure that this Manager was Successfully Created,
+# And that we have All of the Attributes And Methods Available,
+# That it would have Inherited From that Employee Class :
+print(mgr_1.email)
+
+# Print out All the Employees that this Manager supervises :
+mgr_1.print_emps()
+print('\n')
+
+# Add 'dev_2' to the List of Employees :
+mgr_1.add_emp(dev_2)
+
+mgr_1.print_emps()
+print('\n')
+
+# Remove 'dev_1' from the List of Employees :
+mgr_1.remove_emp(dev_1)
+
+mgr_1.print_emps() """
+
+
+
+# 4. Python has Two Built-in Functions Called 'isinstance' And 'issubclass' :
+
+# 1. 'isinstance' will tell us if an Object is an Instance of a Class, For Example :
+print(isinstance(mgr_1, Manager))
+print(isinstance(mgr_1, Employee), '\n')
+
+# But if we Check if 'mgr_1' is an Instance of 'Developer' Class, Then that Returns 'False';
+# Because Even though Developer And Manager Both Inherit From Employee, they Aren't Part of Each Other's Inheritance.
+print(isinstance(mgr_1, Developer))
+
+
+# 2. 'issubclass' will tell us if a Class is a Subclass of Another :
+print(issubclass(Developer, Employee))
+print(issubclass(Manager, Employee), '\n')
+
+print(issubclass(Manager, Developer))
+
+
+
+# 5. (*Extra*) A Practical Real-World Example of Inheritance :
+
+# We can Find One the Easier Examples of Subclassing within the "Exceptions" Module of Python "whisky" Library.
+
+# So This is a Really Popular Library And Used in a lot of Different Projects.
+
+# @implements_to_string
+class HTTPException(Exception):
+    
+    """This HTTPException is the Baseclass for all HTTP exceptions"""

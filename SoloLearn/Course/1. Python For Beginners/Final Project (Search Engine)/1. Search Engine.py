@@ -17,4 +17,4 @@ word = input("Enter a Word: ")
 print(search(text, word))
 
 
-# Also Link to My Course Certificate: "https://www.sololearn.com/certificates/CC-AZDSOA4W"
+# Also Link to the Course Certificate: "https://www.sololearn.com/certificates/CC-AZDSOA4W"
